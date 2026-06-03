@@ -5,5 +5,8 @@
   "imports": {
     "expect": "jsr:@std/expect",
     "assert": "jsr:@std/assert"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "deno.ns"]
   }
 }

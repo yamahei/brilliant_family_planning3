@@ -40,7 +40,7 @@ Deno.test("引数チェック:yearmonths要素が0件はエラー",
 
 // 評価観点：普通の評価
 Deno.test("evaluate:普通の評価",
-async(t) => {
+async(t: Deno.TestContext) => {
     const instance = getInstance({});
 
     //インスタンスのFromYMの境界チェック
@@ -75,7 +75,7 @@ async(t) => {
 });
 
 Deno.test("evaluate:notで結果を反転する",
-async (t) => {
+async (t: Deno.TestContext) => {
     const instance = getInstance({ not: true });
 
     //インスタンスのFromYMの境界チェック
@@ -112,7 +112,7 @@ async (t) => {
 
 // 評価観点：ルールのfromYM-toYM範囲と評価のfromYM-toYM範囲
 Deno.test("評価観点：ルールのfromYM-toYM範囲と評価のfromYM-toYM範囲",
-async (t) => {
+async (t: Deno.TestContext) => {
 
     const instance = getInstance({
         fromYM: { year: 2024, month: 1 },

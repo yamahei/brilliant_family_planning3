@@ -38,6 +38,9 @@ export class RuleSomeMonthStepYear extends RuleBase<types.BFPRuleArg_SomeMonthSt
     }
 
     _evaluate(targetYM: types.BFPType_YearMonth): NonNullable<boolean> {
+        if(!this.rule.fromYM){
+            throw new Error("fromYM is required.");
+        }
         const step:types.BFPType_Step = this.rule.step;
         const fromYear:types.BFPType_Year = this.rule.fromYM.year;
         const targetYear:types.BFPType_Year = targetYM.year;
