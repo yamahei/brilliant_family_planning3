@@ -1,49 +1,32 @@
-import { Storage } from './lib/storage.ts';
+//import { Storage } from './lib/_storage.ts';
 import * as vm from './bfpviewmodel.ts';
 import * as types from "./lib/bfp/rule/types.ts";
 
 
 export class Biz {
     private static instance: Biz;
-    private storage: Storage = new Storage();
-    private data: vm.BfpViewModel = null;
+    private data: vm.BfpViewModel;
+    private saveData: (data: vm.BfpViewModel) => boolean;
 
     //=====
     // 制御関連
     //=====
 
-    public static getInstance(): Biz {
+    // データとデータ保存ロジックは外部から受け取る
+    public static getInstance(data: vm.BfpViewModel, saveData: (data: vm.BfpViewModel) => boolean): Biz {
         if (!Biz.instance) {
-            Biz.instance = new Biz();
+            Biz.instance = new Biz(data, saveData);
         }
         return Biz.instance;
     }
 
-    private constructor() {
-        this.storage = new Storage();
-        this.load().then((data: vm.BfpViewModel) => {
-            this.data = data;
-        });
+    private constructor(data: vm.BfpViewModel, saveData: (data: vm.BfpViewModel) => boolean) {
+        this.data = data;
+        this.saveData = saveData;
     }
 
-    private load(): Promise<vm.BfpViewModel> {
-        return this.storage.get().then((data: vm.BfpViewModel) => {
-            this.data = data;
-            return new Promise((resolve) => {
-                resolve(data);
-            });
-        });
-    }
-
-    public clear(): Promise<void> {
-        this.data = null;
-        return this.storage.clear().then(/* do nothing */);
-    }
-
-    public save(new_data: vm.BfpViewModel): Promise<void> {
-        return this.storage.save(new_data).then(() => {
-            this.data = new_data;
-        });
+    public save(): void {
+        this.saveData(this.data);
     }
 
     private getUniqueId(): string {
@@ -59,10 +42,6 @@ export class Biz {
     // 業務関連
     //=====
 
-    public getData(): vm.BfpViewModel {
-        return this.data;
-    }
-
     public getThisMonth(): types.BFPType_Month {
         const now = new Date();
         return (now.getMonth() + 1) as types.BFPType_Month;
@@ -71,7 +50,7 @@ export class Biz {
         const now = new Date();
         return {
             year: now.getFullYear(),
-            month: now.getMonth() + 1 as types.BFPType_Month,
+            month: (now.getMonth() + 1) as types.BFPType_Month,
         };
     }
 
@@ -120,7 +99,7 @@ export class Biz {
         };
         this.data.klasses.push(klass);
         const new_klass_id = this.data.klasses.length - 1;
-        this.save(this.data).then(/* do nothing */);
+        this.save();
         return new_klass_id;
     }
 
@@ -140,7 +119,7 @@ export class Biz {
         };
         klass.categories.push(category);
         const new_group_id = klass.categories.length - 1;
-        this.save(this.data).then(/* do nothing */);
+        this.save();
         return new_group_id;
     }
 
@@ -161,7 +140,7 @@ export class Biz {
         };
         category.rules.push(vmrule);
         const new_rule_id = category.rules.length - 1;
-        this.save(this.data).then(/* do nothing */);
+        this.save();
         return new_rule_id;
     }
 
@@ -201,7 +180,7 @@ export class Biz {
         }
         rule.conditions.push(condition);
         const new_condition_id = rule.conditions.length - 1;
-        this.save(this.data).then(/* do nothing */);
+        this.save();
         return new_condition_id;
     }
 
