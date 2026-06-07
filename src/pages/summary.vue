@@ -15,7 +15,7 @@
 
             <div class="column is-half">
                 <div class="block">
-                    <div class="box is-clickable" @click="$router.push('/classes')">
+                    <div class="box is-clickable" @click="$router.push('/entities')">
                         <p class="title is-4 is-flex is-flex-wrap-nowrap">
                             <span class="is-flex-grow-1">💰収支ルール</span>
                             <span class="is-flex-shrink-0">
@@ -79,8 +79,8 @@ import { Biz } from '@/biz/biz';
 import BalanceComponent from '@/components/pages/summary/balanceComponent.vue'
 
 const biz:Biz = Biz.getInstance();
-const summarycache = biz.getSummaryInThisMonth(biz.getThisYearMonth());
-const data = biz.getData();
-const has_account = (data?.accounts?.length ?? 0) ? true : false;
-const has_klass = (data?.klasses?.length ?? 0) ? true : false;
+// const summarycache = biz.getSummaryInThisMonth(biz.getThisYearMonth());
+// const data = biz.getData();
+// const has_account = (data?.accounts?.length ?? 0) ? true : false;
+// const has_klass = (data?.klasses?.length ?? 0) ? true : false;
 </script>

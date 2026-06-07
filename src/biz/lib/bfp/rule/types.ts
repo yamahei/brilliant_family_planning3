@@ -29,6 +29,7 @@ export type BFPType_YearMonth = {
  */
 // 共通のパラメータ
 type BFPRuleArg_Base = {
+    sortorder: number;
     fromYM: BFPType_YearMonth | null;
     toYM: BFPType_YearMonth | null;
     not: NonNullable<BFPType_Not>;

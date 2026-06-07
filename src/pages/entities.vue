@@ -1,29 +1,28 @@
 <template>
 
 <Header>
-    <template #title>💳accounts</template>
+    <template #title>👤entities</template>
     <template #actions>
 
         <div class="field is-grouped">
             <p class="control">
-                <button class="button is-primary">銀行の追加</button>
+                <button class="button is-primary">主体の追加</button>
             </p>
         </div>
 
     </template>
 </Header>
 
-
 <section class="section">
 <div class="container">
         <div class="columns is-multiline">
 
             <div
-                class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen is-one-fifth-fullhd"
+                class="column is-full-mobile is-full-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"
                  v-for="key in [1,2,3,4,5,6,7,8,9,10]" :key="key"
             >
 
-                <AccountCardComponent></AccountCardComponent>
+                <EntityCardComponent></EntityCardComponent>
 
             </div><!--column-->
 
@@ -38,5 +37,5 @@
 // @ts-ignore TODO: fix alias settings
 import Header from '@/components/common/Header.vue';
 // @ts-ignore TODO: fix alias settings
-import AccountCardComponent from '@/components/pages/accounts/AccountCardComponent.vue';
+import EntityCardComponent from '@/components/pages/entities/EntityCardComponent.vue';
 </script>

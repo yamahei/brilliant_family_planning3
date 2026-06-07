@@ -20,12 +20,10 @@ declare module 'vue-router/auto-routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/[...path]': RouteRecordInfo<'/[...path]', '/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
-    '/about': RouteRecordInfo<'/about', '/about', Record<never, never>, Record<never, never>>,
     '/accounts': RouteRecordInfo<'/accounts', '/accounts', Record<never, never>, Record<never, never>>,
-    '/classes/': RouteRecordInfo<'/classes/', '/classes', Record<never, never>, Record<never, never>>,
-    '/classes/[klass_id]/': RouteRecordInfo<'/classes/[klass_id]/', '/classes/:klass_id', { klass_id: ParamValue<true> }, { klass_id: ParamValue<false> }>,
+    '/entities': RouteRecordInfo<'/entities', '/entities', Record<never, never>, Record<never, never>>,
     '/HelloWorld': RouteRecordInfo<'/HelloWorld', '/HelloWorld', Record<never, never>, Record<never, never>>,
-    '/rules/[klass_id]/[category_id]/[rule_id]': RouteRecordInfo<'/rules/[klass_id]/[category_id]/[rule_id]', '/rules/:klass_id/:category_id/:rule_id', { klass_id: ParamValue<true>, category_id: ParamValue<true>, rule_id: ParamValue<true> }, { klass_id: ParamValue<false>, category_id: ParamValue<false>, rule_id: ParamValue<false> }>,
     '/summary': RouteRecordInfo<'/summary', '/summary', Record<never, never>, Record<never, never>>,
+    '/trial': RouteRecordInfo<'/trial', '/trial', Record<never, never>, Record<never, never>>,
   }
 }

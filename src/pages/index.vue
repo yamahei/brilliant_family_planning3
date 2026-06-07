@@ -6,15 +6,27 @@
         <section>
             <p class="title">Data</p>
             <textarea class="textarea" v-model="json"></textarea>
-            <button class="button" @click="biz.clear">Clear</button>
         </section>
 
         <section>
             <p class="title">Page</p>
             <ul>
-                <li>
-                    <RouterLink to="/summary" class="has-text-link">📈summary</RouterLink>
-                </li>
+                <li><RouterLink to="/summary" class="has-text-link">📈summary</RouterLink></li>
+            </ul>
+            <ul>
+                <li><RouterLink to="/accounts" class="has-text-link">💳accounts</RouterLink></li>
+            </ul>
+            <ul>
+                <li><RouterLink to="/entities" class="has-text-link">👤entities</RouterLink></li>
+            </ul>
+            <ul>
+                <li><RouterLink to="/classes" class="has-text-link">👤classes</RouterLink></li>
+            </ul>
+            <ul>
+                <li><RouterLink to="/classes/1" class="has-text-link">👨class</RouterLink></li>
+            </ul>
+            <ul>
+                <li><RouterLink to="/about" class="has-text-link">❔about</RouterLink></li>
             </ul>
         </section>
 
@@ -52,7 +64,6 @@
 
 
 <script setup lang="ts">
-import { Biz } from '../biz/biz';
 
 // @ts-ignore TODO: fix alias settings
 import HogeComponent from "@/components/pages/index/hogeComponent.vue"
@@ -121,11 +132,27 @@ const modalPrompt = {
     }
 };
 
+/**
+ * 全頁定型のコード
+ */
+import { getCurrentInstance } from 'vue'
+import { Biz } from '../biz/biz';
+import { Store } from '../biz/store';
+import * as vm from '../biz/bfpviewmodel';
+
+const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
+if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }
+const $biz: Biz = globalProperties.$biz;
+const $store: Store = globalProperties.$store;
+const $data: vm.BfpViewModel = globalProperties.$data;
+// ----
+
+
+console.log($biz);
+
 const biz:Biz = Biz.getInstance();
-const data = biz.getData();
+const data = biz.getEmptyViewModel();
 const json = JSON.stringify(data, null, 2);
-
-
 
 </script>
 

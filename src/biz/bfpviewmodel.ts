@@ -1,5 +1,14 @@
 import * as types from "./lib/bfp/rule/types.ts";
 
+/*
+    Names
+*/
+export const ObjectNames = {
+    Klass: "収支メンバー",
+    Category: "用途",
+    Rule: "ルール",
+    Condition: "条件",
+}
 
 /*
     VMAccounts
@@ -13,6 +22,7 @@ export type VMRecord = {
 export type VMRecords = VMRecord[];
 
 export type VMAccount = {
+    id: string;//Biz.getUniqueId()で生成する
     name: string;
     memo: string | null;
     records: NonNullable<VMRecords>;
@@ -31,7 +41,7 @@ export const VMRuleNotes = [
     {
         type: types.BFPConst_RuleNames.BFPType_RuleNameSMSY,
         name: "複雑なルール",
-        description: "指定した月に発生するが、x年ごとに発生するルール",
+        description: "x年ごとの指定月に発生するルール（毎年はx=1）",
     },
     {
         type: types.BFPConst_RuleNames.BFPType_RuleNameYM,
@@ -40,25 +50,18 @@ export const VMRuleNotes = [
     }
 ];
 
+//費目
 export type VMRule = {
     sortorder: number;
     name: string;
     amount: number;
     presetruleid: string | null;
     conditions: NonNullable<types.BFPRules>;
+    accountid?: string | null;
 }
 export type VMRules = VMRule[];
 
-export type BFPRuleOptions = {
-    // type: types.BFPType_RuleNames;
-    fromYM?: types.BFPType_YearMonth;
-    toYM?: types.BFPType_YearMonth;
-    not?: NonNullable<types.BFPType_Not>;
-    months?: NonNullable<types.BFPType_Month[]>;
-    step?: NonNullable<types.BFPType_Step>;
-    yearmonths?: NonNullable<types.BFPType_YearMonth[]>;
-}
-
+//分類
 export type VMCategory = {
     sortorder: number;
     name: string;
@@ -67,6 +70,7 @@ export type VMCategory = {
 };
 export type VMCategories = VMCategory[];
 
+//主体
 export type VMKlass = {
     sortorder: number;
     name: string;
@@ -79,20 +83,21 @@ export type VMKlasses = VMKlass[];
     SummaryCaches
 */
 
-export type VMSummaryCache = {
-    yearmonth: NonNullable<types.BFPType_YearMonth>;
-    balance: number;
-    income: number;
-    outgo: number;
-};
-export type VMSummaryCaches = VMSummaryCache[];
+// export type VMSummaryCache = {
+//     yearmonth: NonNullable<types.BFPType_YearMonth>;
+//     balance: number;
+//     income: number;
+//     outgo: number;
+// };
+// export type VMSummaryCaches = VMSummaryCache[];
 
 /*
     ViewModel
 */
 export type BfpViewModel = {
     accounts: NonNullable<VMAccounts>;
+    defaultaccountid: string;
     klasses: NonNullable<VMKlasses>;
-    summarycaches: NonNullable<VMSummaryCaches>;
-    presetvalues: null;//TODO
-} | null;
+    // summarycaches: NonNullable<VMSummaryCaches>;
+    // presetvalues: null;//TODO
+};

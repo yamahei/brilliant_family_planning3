@@ -55,7 +55,6 @@
 
 <script setup lang="ts">
 
-import { defineProps } from 'vue'
 // @ts-ignore TODO: fix alias settings
 import * as vm from '@/biz/bfpviewmodel';
 

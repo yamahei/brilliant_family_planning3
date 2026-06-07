@@ -5,11 +5,12 @@ export class RuleYearMonths extends RuleBase<types.BFPRuleArg_YearMonths> {
 
     static getInstance(
         yearmonths: types.BFPType_YearMonth[],
-        fromYM: types.BFPType_YearMonth,
-        toYM: types.BFPType_YearMonth,
+        fromYM: types.BFPType_YearMonth | null,
+        toYM: types.BFPType_YearMonth | null,
         not: types.BFPType_Not,
     ): RuleYearMonths {
         return new RuleYearMonths({
+            sortorder: 0,
             type: "YEARMONTH",
             yearmonths: yearmonths,
             fromYM: fromYM,

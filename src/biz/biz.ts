@@ -1,33 +1,25 @@
 //import { Storage } from './lib/_storage.ts';
 import * as vm from './bfpviewmodel.ts';
-import * as types from "./lib/bfp/rule/types.ts";
+import * as core from "./lib/bfp/rule/main.ts";
 
 
 export class Biz {
     private static instance: Biz;
-    private data: vm.BfpViewModel;
-    private saveData: (data: vm.BfpViewModel) => boolean;
 
     //=====
     // 制御関連
     //=====
 
-    // データとデータ保存ロジックは外部から受け取る
-    public static getInstance(data: vm.BfpViewModel, saveData: (data: vm.BfpViewModel) => boolean): Biz {
+    public static getInstance(): Biz {
         if (!Biz.instance) {
-            Biz.instance = new Biz(data, saveData);
+            Biz.instance = new Biz();
         }
         return Biz.instance;
     }
 
-    private constructor(data: vm.BfpViewModel, saveData: (data: vm.BfpViewModel) => boolean) {
-        this.data = data;
-        this.saveData = saveData;
+    private constructor() {
     }
 
-    public save(): void {
-        this.saveData(this.data);
-    }
 
     private getUniqueId(): string {
         const radix = 36;
@@ -42,146 +34,96 @@ export class Biz {
     // 業務関連
     //=====
 
-    public getThisMonth(): types.BFPType_Month {
+    public getThisMonth(): core.type.BFPType_Month {
         const now = new Date();
-        return (now.getMonth() + 1) as types.BFPType_Month;
+        return (now.getMonth() + 1) as core.type.BFPType_Month;
     }
-    public getThisYearMonth(): types.BFPType_YearMonth {
+    public getThisYearMonth(): core.type.BFPType_YearMonth {
         const now = new Date();
         return {
             year: now.getFullYear(),
-            month: (now.getMonth() + 1) as types.BFPType_Month,
+            month: (now.getMonth() + 1) as core.type.BFPType_Month,
         };
     }
 
-    public getSummaryInThisMonth(yearMonth:types.BFPType_YearMonth): vm.VMSummaryCache | null {
-        if(!this.data){
-            throw new Error("data is not loaded.");
-        }
-        const summary = this.data.summarycaches.find((s) => {
-            return s.yearmonth.year === yearMonth.year && s.yearmonth.month === yearMonth.month;
-        });
-        return summary ?? null;
+    public getEmptyViewModel(): vm.BfpViewModel {
+        const account = this.getEmptyAccount();
+        return {
+            accounts: [account],
+            defaultaccountid: account.id,
+            klasses: [],
+        };
     }
 
-    public getKlassById(klass_id:number): vm.VMKlass | null {
-        if([klass_id].some(n => isNaN(n) || n === null)){
-            throw new Error("Invalid class id parameters.");
-        }
-        return this.data?.klasses[klass_id] ?? null;
+    public getEmptyAccount(): vm.VMAccount {
+        return {
+            id: this.getUniqueId(),
+            name: "口座名",
+            memo: "何用の口座かなどのメモ",
+            records: [],
+        };
     }
 
-    public getCategoryById(klass_id:number, category_id:number): vm.VMCategory | null {
-        if([klass_id, category_id].some(n => isNaN(n) || n === null)){
-            throw new Error("Invalid category id parameters.");
-        }
-        const klass:(vm.VMKlass | null) = this.getKlassById(klass_id);
-        return klass?.categories[category_id] ?? null;
-    }
-
-    public getRuleById(klass_id:number, category_id:number, rule_id:number): vm.VMRule | null {
-        if([klass_id, category_id, rule_id].some(n => isNaN(n) || n === null)){
-            throw new Error("Invalid rule id parameters.");
-        }
-        const category:(vm.VMCategory | null) = this.getCategoryById(klass_id, category_id);
-        return category?.rules[rule_id] ?? null;
-    }
-
-    public appendNewKlass(klass_name:string, presetklassid:string): number {
-        if(!this.data){
-            throw new Error("data is not loaded.");
-        }
-        const klass: vm.VMKlass = {
-            sortorder: this.data.klasses.length,
-            name: klass_name,
-            presetklassid: presetklassid || null,
+    public getEmptyKlass(): vm.VMKlass {
+        return {
+            sortorder: 0,
+            name: vm.ObjectNames.Klass,
+            presetklassid: null,
             categories: [],
         };
-        this.data.klasses.push(klass);
-        const new_klass_id = this.data.klasses.length - 1;
-        this.save();
-        return new_klass_id;
     }
 
-    public appendNewCategory(klass_id:number, category_name:string): number {
-        if(!this.data){
-            throw new Error("data is not loaded.");
-        }
-        const klass:(vm.VMKlass | null) = this.getKlassById(klass_id);
-        if(!klass){
-            throw new Error("Invalid class id parameters.");
-        }
-        const category:vm.VMCategory = {
-            sortorder: klass.categories.length,
-            name: category_name,
+    public getEmptyCategory(): vm.VMCategory {
+        return {
+            sortorder: 0,
+            name: vm.ObjectNames.Category,
             presetcategoryid: null,
             rules: [],
         };
-        klass.categories.push(category);
-        const new_group_id = klass.categories.length - 1;
-        this.save();
-        return new_group_id;
     }
 
-    public appendNewRule(klass_id:number, category_id:number, rule_name:string): number {
-        if(!this.data){
-            throw new Error("data is not loaded.");
-        }
-        const category:(vm.VMCategory | null) = this.getCategoryById(klass_id, category_id);
-        if(!category){
-            throw new Error("Invalid category id parameters.");
-        }
-        const vmrule:vm.VMRule = {
-            sortorder: category.rules.length,
-            name: rule_name,
+    public getEmptyRule(): vm.VMRule {
+        return {
+            sortorder: 0,
+            name: vm.ObjectNames.Rule,
             amount: 0,
             presetruleid: null,
             conditions: [],
         };
-        category.rules.push(vmrule);
-        const new_rule_id = category.rules.length - 1;
-        this.save();
-        return new_rule_id;
     }
 
-    public appendNewCondition(rule:vm.VMRule, condition_type:types.BFPType_RuleNames, option?:vm.BFPRuleOptions):number {
-        let condition:types.BFPRuleArg_Any|null = null;
-        switch(condition_type){
-            case types.BFPConst_RuleNames.BFPType_RuleNameYM:
-                condition = {
-                    type: condition_type,
-                    fromYM: option?.fromYM || null,
-                    toYM: option?.toYM || null,
-                    not: option?.not || false,
-                    yearmonths: option?.yearmonths || [],
-                };
-                break;
-            case types.BFPConst_RuleNames.BFPType_RuleNameSM:
-                condition = {
-                    type: condition_type,
-                    fromYM: option?.fromYM || null,
-                    toYM: option?.toYM || null,
-                    not: option?.not || false,
-                    months: option?.months || [],
-                };
-                break;
-            case types.BFPConst_RuleNames.BFPType_RuleNameSMSY:
-                condition = {
-                    type: condition_type,
-                    fromYM: option?.fromYM || null,
-                    toYM: option?.toYM || null,
-                    not: option?.not || false,
-                    months: option?.months || [],
-                    step: option?.step || 1,
-                };
-                break;
-            default:
-                throw new Error("Invalid condition type.");
+    public getEmptyConditionYearMonths(): core.type.BFPRuleArg_YearMonths {
+        const yeaemonth = this.getThisYearMonth();
+        return {
+            type: core.type.BFPConst_RuleNames.BFPType_RuleNameYM,
+            sortorder: 0,
+            fromYM: null,
+            toYM: null,
+            not: false,
+            yearmonths: [yeaemonth],
+        };
+    }
+    public getEmptyConditionSomeMonths(): core.type.BFPRuleArg_SomeMonth {
+        const month = this.getThisMonth();
+        return {
+            type: core.type.BFPConst_RuleNames.BFPType_RuleNameSM,
+            sortorder: 0,
+            fromYM: null,
+            toYM: null,
+            not: false,
+            months: [month],
         }
-        rule.conditions.push(condition);
-        const new_condition_id = rule.conditions.length - 1;
-        this.save();
-        return new_condition_id;
     }
-
+    public getEmptyConditionSomeMonthStepYear(): core.type.BFPRuleArg_SomeMonthStepYear {
+        const month = this.getThisMonth();
+        return {
+            type: core.type.BFPConst_RuleNames.BFPType_RuleNameSMSY,
+            sortorder: 0,
+            fromYM: null,
+            toYM: null,
+            not: false,
+            months: [month],
+            step: 1,
+        }
+    }
 }

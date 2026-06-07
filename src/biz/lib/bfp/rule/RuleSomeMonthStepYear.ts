@@ -6,11 +6,12 @@ export class RuleSomeMonthStepYear extends RuleBase<types.BFPRuleArg_SomeMonthSt
     static getInstance(
         months: types.BFPType_Month[],
         step: types.BFPType_Step,
-        fromYM: types.BFPType_YearMonth,
-        toYM: types.BFPType_YearMonth,
+        fromYM: types.BFPType_YearMonth | null,
+        toYM: types.BFPType_YearMonth | null,
         not: types.BFPType_Not,
     ): RuleSomeMonthStepYear {
         return new RuleSomeMonthStepYear({
+            sortorder: 0,
             type: "SOMEMONTHSTEPYEAR",
             months: months,
             step: step,
