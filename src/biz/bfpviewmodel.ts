@@ -55,41 +55,21 @@ export type VMRule = {
     sortorder: number;
     name: string;
     amount: number;
+    classname: string | null;
     presetruleid: string | null;
     conditions: NonNullable<types.BFPRules>;
     accountid?: string | null;
 }
 export type VMRules = VMRule[];
 
-//分類
-export type VMCategory = {
-    sortorder: number;
-    name: string;
-    presetcategoryid: string | null;
-    rules: NonNullable<VMRules>;
-};
-export type VMCategories = VMCategory[];
-
 //主体
-export type VMKlass = {
+export type VMEntity = {
     sortorder: number;
     name: string;
     presetklassid: string | null;
-    categories: NonNullable<VMCategories>;
+    rules: NonNullable<VMRules>;
 };
-export type VMKlasses = VMKlass[];
-
-/*
-    SummaryCaches
-*/
-
-// export type VMSummaryCache = {
-//     yearmonth: NonNullable<types.BFPType_YearMonth>;
-//     balance: number;
-//     income: number;
-//     outgo: number;
-// };
-// export type VMSummaryCaches = VMSummaryCache[];
+export type VMEntities = VMEntity[];
 
 /*
     ViewModel
@@ -97,7 +77,7 @@ export type VMKlasses = VMKlass[];
 export type BfpViewModel = {
     accounts: NonNullable<VMAccounts>;
     defaultaccountid: string;
-    klasses: NonNullable<VMKlasses>;
+    entities: NonNullable<VMEntities>;
     // summarycaches: NonNullable<VMSummaryCaches>;
     // presetvalues: null;//TODO
 };

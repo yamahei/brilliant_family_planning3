@@ -51,7 +51,7 @@ export class Biz {
         return {
             accounts: [account],
             defaultaccountid: account.id,
-            klasses: [],
+            entities: [],
         };
     }
 
@@ -64,20 +64,11 @@ export class Biz {
         };
     }
 
-    public getEmptyKlass(): vm.VMKlass {
+    public getEmptyEntity(): vm.VMEntity {
         return {
             sortorder: 0,
             name: vm.ObjectNames.Klass,
             presetklassid: null,
-            categories: [],
-        };
-    }
-
-    public getEmptyCategory(): vm.VMCategory {
-        return {
-            sortorder: 0,
-            name: vm.ObjectNames.Category,
-            presetcategoryid: null,
             rules: [],
         };
     }
@@ -87,6 +78,7 @@ export class Biz {
             sortorder: 0,
             name: vm.ObjectNames.Rule,
             amount: 0,
+            classname: null,
             presetruleid: null,
             conditions: [],
         };

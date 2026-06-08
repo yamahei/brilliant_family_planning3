@@ -27,6 +27,9 @@ $ deno run dev
 
 # テストの実行
 $ deno test
+
+# ビルド
+$ deno run build # …であってる？
 ```
 
 アーキテクチャ

@@ -18,7 +18,7 @@
         <div class="columns is-multiline">
 
             <div
-                class="column is-full-mobile is-full-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"
+                class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen is-one-fifth-fullhd"
                  v-for="key in [1,2,3,4,5,6,7,8,9,10]" :key="key"
             >
 

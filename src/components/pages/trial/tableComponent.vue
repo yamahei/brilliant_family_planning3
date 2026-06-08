@@ -28,86 +28,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th>2026-01</th>
-            <td>-1000</td>
-            <td>500</td>
-            <td>0</td>
-            <td>0</td>
-            <td>44500</td>
-            <td>250000</td>
-            <td>294500</td>
-            <td>-500</td>
-            <td>0</td>
-            <td>-500</td>
-        </tr>
-        <tr>
-            <th>2026-02</th>
-            <td>0</td>
-            <td>500</td>
-            <td>0</td>
-            <td>0</td>
-            <td>45000</td>
-            <td>250000</td>
-            <td>295000</td>
-            <td>500</td>
-            <td>0</td>
-            <td>500</td>
-        </tr>
-        <tr>
-            <th>2026-03</th>
-            <td>0</td>
-            <td>500</td>
-            <td>150000</td>
-            <td>-70000</td>
-            <td>45500</td>
-            <td>330000</td>
-            <td>375500</td>
-            <td>500</td>
-            <td>80000</td>
-            <td>80500</td>
-        </tr>
-        <tr>
-            <th>2026-04</th>
-            <td>0</td>
-            <td>500</td>
-            <td>0</td>
-            <td>0</td>
-            <td>46000</td>
-            <td>330000</td>
-            <td>376000</td>
-            <td>500</td>
-            <td>0</td>
-            <td>500</td>
-        </tr>
-        <tr>
-            <th>2026-05</th>
-            <td>0</td>
-            <td>500</td>
-            <td>0</td>
-            <td>0</td>
-            <td>46500</td>
-            <td>330000</td>
-            <td>376500</td>
-            <td>500</td>
-            <td>0</td>
-            <td>500</td>
-        </tr>
-        <tr>
-            <th>2026-06</th>
-            <td>-1000</td>
-            <td>500</td>
-            <td>0</td>
-            <td>0</td>
-            <td>46000</td>
-            <td>330000</td>
-            <td>376000</td>
-            <td>-500</td>
-            <td>0</td>
-            <td>-500</td>
-        </tr>
-
-
+        <tr><th>2026-01</th><td>-1000</td><td>500</td><td>0</td><td>0</td><td>44500</td><td>250000</td><td>294500</td><td>-500</td><td>0</td><td>-500</td></tr>
+        <tr><th>2026-02</th><td>0</td><td>500</td><td>0</td><td>0</td><td>45000</td><td>250000</td><td>295000</td><td>500</td><td>0</td><td>500</td></tr>
+        <tr><th>2026-03</th><td>0</td><td>500</td><td>150000</td><td>-70000</td><td>45500</td><td>330000</td><td>375500</td><td>500</td><td>80000</td><td>80500</td></tr>
+        <tr><th>2026-04</th><td>0</td><td>500</td><td>0</td><td>0</td><td>46000</td><td>330000</td><td>376000</td><td>500</td><td>0</td><td>500</td></tr>
+        <tr><th>2026-05</th><td>0</td><td>500</td><td>0</td><td>0</td><td>46500</td><td>330000</td><td>376500</td><td>500</td><td>0</td><td>500</td></tr>
+        <tr><th>2026-06</th><td>-1000</td><td>500</td><td>0</td><td>0</td><td>46000</td><td>330000</td><td>376000</td><td>-500</td><td>0</td><td>-500</td></tr>
     </tbody>
 </table>
 
@@ -117,8 +43,11 @@
     th {
         white-space: nowrap;
         background-color: #f5f5f5;
-        text-align: center;
+        text-align: center !important;
         vertical-align: middle;
+        max-width: 240px;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
     td {
         padding-right: 0.5rem !important;

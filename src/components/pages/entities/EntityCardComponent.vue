@@ -12,11 +12,11 @@
         <p class="card-header-title">主体名（表示）</p>
     </header>
 
-    <CategoryPanelComponent></CategoryPanelComponent>
+    <RulePanelComponent></RulePanelComponent>
 
 
     <footer class="card-footer">
-        <p class="card-footer-item is-flex-grow-2 is-clickable" @click="appendCategory">🧾分類を追加</p>
+        <p class="card-footer-item is-flex-grow-2 is-clickable" @click="appendCategory">🧾費目を追加</p>
         <p class="card-footer-item has-text-danger" @click="deleteEntity">🗑️削除</p>
     </footer>
 </div>
@@ -33,7 +33,7 @@
 // @ts-ignore TODO: fix alias settings
 import * as vm from '@/biz/bfpviewmodel';
 // @ts-ignore TODO: fix alias settings
-import CategoryPanelComponent from '@/components/pages/entities/CategoryPanelComponent.vue';
+import RulePanelComponent from '@/components/pages/entities/RulePanelComponent.vue';
 
 
 //TODO: define property: entity: VMKlass

@@ -20,13 +20,7 @@
                 <li><RouterLink to="/entities" class="has-text-link">👤entities</RouterLink></li>
             </ul>
             <ul>
-                <li><RouterLink to="/classes" class="has-text-link">👤classes</RouterLink></li>
-            </ul>
-            <ul>
-                <li><RouterLink to="/classes/1" class="has-text-link">👨class</RouterLink></li>
-            </ul>
-            <ul>
-                <li><RouterLink to="/about" class="has-text-link">❔about</RouterLink></li>
+                <li><RouterLink to="/📊trial" class="has-text-link">📊trial</RouterLink></li>
             </ul>
         </section>
 

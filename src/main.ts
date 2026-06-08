@@ -15,7 +15,7 @@ const router = createRouter({
 });
 
 const biz = Biz.getInstance();
-const store = Store.getInstance();
+const store = Store.getInstance(biz.getEmptyViewModel());
 const data  = store.load();
 
 Promise.resolve().then(() => {//TODO: wait for data loading
