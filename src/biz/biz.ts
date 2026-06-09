@@ -68,7 +68,7 @@ export class Biz {
         return {
             sortorder: 0,
             name: vm.ObjectNames.Klass,
-            presetklassid: null,
+            presetentityid: null,
             rules: [],
         };
     }

@@ -31,5 +31,8 @@ export class Store {
     public save(data: vm.BfpViewModel): void {
         localStorage.setItem(this.key, JSON.stringify(data));
     }
+    public clear(): void {
+        localStorage.removeItem(this.key);
+    }
 
 }

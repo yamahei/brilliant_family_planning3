@@ -6,6 +6,9 @@
         <section>
             <p class="title">Data</p>
             <textarea class="textarea" v-model="json"></textarea>
+            <button class="button is-danger"
+                @click="$confirm('Clear', 'localstorageをクリア', (e:boolean) => e && $store.clear())"
+            >Clear</button>
         </section>
 
         <section>
@@ -93,6 +96,7 @@ const $data: vm.BfpViewModel = globalProperties.$data;
 const $alert = globalProperties.$alert;
 const $confirm = globalProperties.$confirm;
 const $prompt = globalProperties.$prompt;
+// ここまで
 
 console.debug({
     globalProperties,
@@ -105,9 +109,7 @@ console.debug({
 });
 
 console.log($biz);
-
-const biz:Biz = Biz.getInstance();
-const data = biz.getEmptyViewModel();
+const data = $store.load();
 const json = JSON.stringify(data, null, 2);
 
 </script>

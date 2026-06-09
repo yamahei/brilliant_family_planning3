@@ -66,7 +66,7 @@ export type VMRules = VMRule[];
 export type VMEntity = {
     sortorder: number;
     name: string;
-    presetklassid: string | null;
+    presetentityid: string | null;
     rules: NonNullable<VMRules>;
 };
 export type VMEntities = VMEntity[];
