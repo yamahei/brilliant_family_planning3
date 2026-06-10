@@ -6,18 +6,18 @@
             <th rowspan="3" class="ym">年月</th>
             <th colspan="3">主体A</th>
             <th>主体B</th>
-            <th colspan="3">銀行（累積残高）</th>
-            <th colspan="3">銀行（単年月収支）</th>
+            <th colspan="3">口座（累積残高）</th>
+            <th colspan="3">口座（単年月収支）</th>
         </tr>
         <tr>
             <th colspan="2">カテゴリa</th>
             <th>カテゴリb</th>
             <th>カテゴリc</th>
-            <th rowspan="2">銀行ア</th>
-            <th rowspan="2">銀行イ</th>
+            <th rowspan="2">口座ア</th>
+            <th rowspan="2">口座イ</th>
             <th rowspan="2">総計</th>
-            <th rowspan="2">銀行ア</th>
-            <th rowspan="2">銀行イ</th>
+            <th rowspan="2">口座ア</th>
+            <th rowspan="2">口座イ</th>
             <th rowspan="2">総計</th>
         </tr>
         <tr>

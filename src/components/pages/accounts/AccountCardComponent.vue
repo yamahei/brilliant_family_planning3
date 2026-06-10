@@ -2,18 +2,14 @@
 
 <div class="card">
     <header class="card-header">
-        <div class="field has-addons is-flex-grow-1">
-            <p class="control is-expanded is-flex-grow-1">
-                <input class="input" type="text" placeholder="銀行名を編集中…" @blur="finishEditAccount" />
-            </p>
-            <p class="control">
-                <a class="button" @click="setDefaultAccount">☆</a>
-            </p>
-        </div>
-    </header>
-    <header class="card-header" @click="startEditAccount(1)">
-        <p class="card-header-title">銀行名（表示）</p>
-        <p class="card-header-title">☆</p>
+        <p class="card-header-title is-flex-grow-0">
+            <p v-if="props.isDefault">⭐</p>
+            <button v-else class="button is-small" @click="onDefaultAccount(props.account)">☆</button>
+        </p>
+        <p class="card-header-title">{{ props.account.name }}</p>
+        <p class="card-header-title is-flex-grow-0">
+            <button class="button is-small" @click="onEditAccount(props.account)">📝</button>
+        </p>
     </header>
 
     <div class="card-content">
@@ -22,10 +18,6 @@
         </div>
     </div>
 
-    <footer class="card-footer">
-        <p class="card-footer-item is-flex-grow-2 is-clickable" @click="appendHistory">🧾残高を追加</p>
-        <p class="card-footer-item has-text-danger" @click="deleteAccount">🗑️削除</p>
-    </footer>
 </div>
 
 </template>
@@ -42,31 +34,21 @@ import * as vm from '@/biz/bfpviewmodel';
 // @ts-ignore TODO: fix alias settings
 import AccountHistoryComponent from '@/components/pages/accounts/AccountHistoryComponent.vue';
 
-//TODO: define property: account: AccountViewModel
+const emit = defineEmits(['edit', 'default']);
+const props = defineProps<{
+    account:vm.VMAccount;
+    isDefault:boolean;
+}>();
 
-let editing_account:unknown = null;
 
-const startEditAccount = (account: number) => {
-    if(!editing_account){
-      console.log('edit account', account);
-      editing_account = account;
-    }
+const onDefaultAccount = (account:vm.VMAccount) => {
+    emit('default', account);
+}
+const onEditAccount = (account:vm.VMAccount) => {
+    emit('edit', account);
 }
 
-const finishEditAccount = () => {
-    if(!editing_account){ return }
 
-    const valid = true; //TODO: validate account name
-    if(valid){
-        console.log('finish edit account', editing_account);
-        editing_account = null;
-    }
-}
-
-const setDefaultAccount = () => {
-    //TODO: emit event to parent component to set default account
-    console.log('set default account');
-}
 
 const appendHistory = () => {
     //TODO: show modal to input history data, then emit event to parent component to append history
