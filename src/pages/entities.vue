@@ -21,10 +21,12 @@
 
             <div
                 class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen is-one-fifth-fullhd"
-                 v-for="(entity, index) in $data.entities" :key="index"
+                 v-for="(entity, index) in $data.entities" :key="`${index}-${entity.name}`"
             >
-
-                <EntityCardComponent></EntityCardComponent>
+                <EntityCardComponent
+                    :entity="entity"
+                    @edit="onEditEntity"
+                ></EntityCardComponent>
 
             </div><!--column-->
 
@@ -33,8 +35,8 @@
 </section>
 
 <ModalEntityEdit
-    :show="show" :isedit="isedit" :entity="entity"
-    @ok="onEntityOk" @cancel="onEntityCancel" @remove="onEntityRemove"
+    :show="modal_show" :isedit="modal_isedit" :entity="modal_entity"
+    @ok="onEntityEditOk" @cancel="onEntityEditCancel" @remove="onEntityEditRemove"
 ></ModalEntityEdit>
 
 </template>
@@ -71,29 +73,44 @@ import EntityCardComponent from '@/components/pages/entities/EntityCardComponent
 // @ts-ignore TODO: fix alias settings
 import ModalEntityEdit from '@/components/pages/entities/ModalEntityEdit.vue';
 
-const show = ref(false);
-const isedit = ref(false);
-const entity = ref<vm.VMEntity | null>(null);
+const modal_show = ref(false);
+const modal_isedit = ref(false);
+const modal_entity = ref<vm.VMEntity | null>(null);
 
 const onAppendEntity = () => {
-    entity.value = $biz.getEmptyEntity();
-    isedit.value = false;
-    show.value = true;
+    modal_entity.value = $biz.getEmptyEntity();
+    modal_isedit.value = false;
+    modal_show.value = true;
+};
+const onEditEntity = (entiy:vm.VMEntity) => {
+    modal_entity.value = entiy;
+    modal_isedit.value = true;
+    modal_show.value = true;
 };
 
-const onEntityOk = (new_entity:vm.VMEntity) => {
-    if(!isedit.value){
-        $data.entities.push(new_entity);
+const onEntityEditOk = (entity:vm.VMEntity) => {
+    if(!modal_isedit.value){
+        //TODO: preset
+        $data.entities.push(entity);
     }else{/* do nothing */}
     save();
-    show.value = false;
+    modal_show.value = false;
 };
-const onEntityCancel = () => {
-    show.value = false;
+const onEntityEditCancel = () => {
+    modal_show.value = false;
 };
-const onEntityRemove = () => {
-    //remove
-    save();
-    show.value = false;
+const onEntityEditRemove = (entity:vm.VMEntity) => {
+    $confirm(
+        "主体の削除",
+        `「${entity.name}」を削除しますか？`,
+        (ok:boolean) => {
+            const index = $data.entities.findIndex(e => e.id === entity.id);
+            if(ok && index >= 0){
+                $data.entities.splice(index, 1);
+                save();
+                modal_show.value = false;
+            }
+        }
+    );
 };
 </script>

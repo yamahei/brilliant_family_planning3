@@ -10,6 +10,7 @@ export class RuleSomeMonths extends RuleBase<types.BFPRuleArg_SomeMonth> {
         not: types.BFPType_Not,
     ): RuleSomeMonths {
         return new RuleSomeMonths({
+            id: (+new Date()).toString(),
             sortorder: 0,
             type: "SOMEMONTH",
             months: months,

@@ -107,10 +107,7 @@ console.debug({
     confirmShow: $confirm,
     promptShow: $prompt
 });
-
-console.log($biz);
-const data = $store.load();
-const json = JSON.stringify(data, null, 2);
+const json = JSON.stringify($data, null, 2);
 
 </script>
 

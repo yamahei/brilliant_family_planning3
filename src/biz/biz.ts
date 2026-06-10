@@ -66,6 +66,7 @@ export class Biz {
 
     public getEmptyEntity(): vm.VMEntity {
         return {
+            id: this.getUniqueId(),
             sortorder: 0,
             name: vm.ObjectNames.Klass,
             presetentityid: null,
@@ -75,6 +76,7 @@ export class Biz {
 
     public getEmptyRule(): vm.VMRule {
         return {
+            id: this.getUniqueId(),
             sortorder: 0,
             name: vm.ObjectNames.Rule,
             amount: 0,
@@ -87,6 +89,7 @@ export class Biz {
     public getEmptyConditionYearMonths(): core.type.BFPRuleArg_YearMonths {
         const yeaemonth = this.getThisYearMonth();
         return {
+            id: this.getUniqueId(),
             type: core.type.BFPConst_RuleNames.BFPType_RuleNameYM,
             sortorder: 0,
             fromYM: null,
@@ -98,6 +101,7 @@ export class Biz {
     public getEmptyConditionSomeMonths(): core.type.BFPRuleArg_SomeMonth {
         const month = this.getThisMonth();
         return {
+            id: this.getUniqueId(),
             type: core.type.BFPConst_RuleNames.BFPType_RuleNameSM,
             sortorder: 0,
             fromYM: null,
@@ -109,6 +113,7 @@ export class Biz {
     public getEmptyConditionSomeMonthStepYear(): core.type.BFPRuleArg_SomeMonthStepYear {
         const month = this.getThisMonth();
         return {
+            id: this.getUniqueId(),
             type: core.type.BFPConst_RuleNames.BFPType_RuleNameSMSY,
             sortorder: 0,
             fromYM: null,

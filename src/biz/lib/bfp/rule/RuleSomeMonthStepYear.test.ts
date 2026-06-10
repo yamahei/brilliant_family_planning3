@@ -11,6 +11,7 @@ const getInstance = (
         months?:types.BFPType_Month[]
     }):RuleSomeMonthStepYear => {
     return new RuleSomeMonthStepYear({
+        id: (+new Date()).toString(),
         sortorder: 0,
         type: "SOMEMONTHSTEPYEAR",
         fromYM: fromYM || { year: 2022, month: 12 },

@@ -10,6 +10,7 @@ const getInstance = (
         yearmonths?:types.BFPType_YearMonth[]
     }):RuleYearMonths => {
     return new RuleYearMonths({
+        id: (+new Date()).toString(),
         sortorder: 0,
         type: "YEARMONTH",
         fromYM: fromYM || { year: 2023, month: 1 },

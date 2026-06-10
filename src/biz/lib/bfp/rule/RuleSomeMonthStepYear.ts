@@ -11,6 +11,7 @@ export class RuleSomeMonthStepYear extends RuleBase<types.BFPRuleArg_SomeMonthSt
         not: types.BFPType_Not,
     ): RuleSomeMonthStepYear {
         return new RuleSomeMonthStepYear({
+            id: (+new Date()).toString(),
             sortorder: 0,
             type: "SOMEMONTHSTEPYEAR",
             months: months,

@@ -10,6 +10,7 @@ export class RuleYearMonths extends RuleBase<types.BFPRuleArg_YearMonths> {
         not: types.BFPType_Not,
     ): RuleYearMonths {
         return new RuleYearMonths({
+            id: (+new Date()).toString(),
             sortorder: 0,
             type: "YEARMONTH",
             yearmonths: yearmonths,

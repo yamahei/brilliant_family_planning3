@@ -29,6 +29,7 @@ export type BFPType_YearMonth = {
  */
 // 共通のパラメータ
 type BFPRuleArg_Base = {
+    id: string;//Biz.getUniqueId()で生成する
     sortorder: number;
     fromYM: BFPType_YearMonth | null;
     toYM: BFPType_YearMonth | null;

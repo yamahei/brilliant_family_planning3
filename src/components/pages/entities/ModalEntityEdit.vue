@@ -91,7 +91,7 @@ const onCancel = () => {
     emit("cancel", null);
 };
 const onRemove = () => {
-    emit("remove", null);
+    emit("remove", props.entity);
 };
 
 

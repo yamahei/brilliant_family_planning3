@@ -52,6 +52,7 @@ export const VMRuleNotes = [
 
 //費目
 export type VMRule = {
+    id: string;//Biz.getUniqueId()で生成する
     sortorder: number;
     name: string;
     amount: number;
@@ -64,6 +65,7 @@ export type VMRules = VMRule[];
 
 //主体
 export type VMEntity = {
+    id: string;//Biz.getUniqueId()で生成する
     sortorder: number;
     name: string;
     presetentityid: string | null;
