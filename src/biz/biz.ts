@@ -45,6 +45,24 @@ export class Biz {
             month: (now.getMonth() + 1) as core.type.BFPType_Month,
         };
     }
+    public yearMonthToString(yearmonth:core.type.BFPType_YearMonth): string {
+        const year = `${yearmonth.year}`;
+        const month = `00${yearmonth.month}`.slice(-2);
+        return `${year}-${month}`;
+    }
+    public stringToYearmonth(yearmonth:string):core.type.BFPType_YearMonth {
+        const errormessage = `stringToYearmonth: argument '${yearmonth}' is invalid.`;
+
+        if(!yearmonth.match(/\d{4}-\d{2}/)){ throw new Error(errormessage); }
+        const [year, month] = yearmonth.split("-").map(e => Number(e));
+
+        if(![1,2,3,4,5,6,7,8,9,10,11,12].includes(month)){ throw new Error(errormessage); }
+        return {
+            year: Number(year) as core.type.BFPType_Year,
+            month: Number(month) as core.type.BFPType_Month,
+        };
+
+    }
 
     public getEmptyViewModel(): vm.BfpViewModel {
         const account = this.getEmptyAccount();
@@ -62,6 +80,14 @@ export class Biz {
             memo: "何用の口座かなどのメモ",
             records: [],
         };
+    }
+    public getEmptyRecord(): vm.VMRecord {
+        return {
+            id: this.getUniqueId(),
+            yearmonth: this.yearMonthToString(this.getThisYearMonth()),
+            memo: null,
+            balance: 0,
+        }
     }
 
     public getEmptyEntity(): vm.VMEntity {

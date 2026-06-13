@@ -92,6 +92,7 @@ if(!globalProperties){ throw new Error("Failed to get global properties. Make su
 const $biz: Biz = globalProperties.$biz;
 const $store: Store = globalProperties.$store;
 const $data: vm.BfpViewModel = globalProperties.$data;
+const $util: vm.BfpViewModel = globalProperties.$util;
 // ----
 const $alert = globalProperties.$alert;
 const $confirm = globalProperties.$confirm;

@@ -24,13 +24,14 @@
                 class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen is-one-fifth-fullhd"
                  v-for="(account, index) in $data.accounts" :key="`${index}-${account.name}`"
             >
-
                 <AccountCardComponent
+                    :key="`TODO: not work.. why?: ${account.id}-${$data.defaultaccountid}`"
                     :account="account"
                     :isDefault="$data.defaultaccountid === account.id"
                     @edit="onEditAccount"
+                    @save="onSaveAccount"
+                    @default="onDefaultAccount"
                 ></AccountCardComponent>
-
             </div><!--column-->
 
         </div><!--columns-->
@@ -59,6 +60,7 @@ if(!globalProperties){ throw new Error("Failed to get global properties. Make su
 const $biz: Biz = globalProperties.$biz;
 const $store: Store = globalProperties.$store;
 const $data: vm.BfpViewModel = globalProperties.$data;
+const $util: vm.BfpViewModel = globalProperties.$util;
 // ----
 const $alert = globalProperties.$alert;
 const $confirm = globalProperties.$confirm;
@@ -110,6 +112,22 @@ const onAccountEditRemove = (account:vm.VMAccount) => {
                 $data.accounts.splice(index, 1);
                 save();
                 modal_show.value = false;
+            }
+        }
+    );
+};
+
+const onSaveAccount = () => {
+    save();
+};
+const onDefaultAccount = (account:vm.VMAccount) => {
+    $confirm(
+        "デフォルト口座の変更",
+        `「${account.name}」をデフォルト口座にしますか？`,
+        (ok:boolean) => {
+            if(ok){
+                $data.defaultaccountid = account.id;
+                save();
             }
         }
     );

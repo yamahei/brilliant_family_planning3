@@ -15,7 +15,8 @@ export const ObjectNames = {
 */
 
 export type VMRecord = {
-    yearmonth: NonNullable<types.BFPType_YearMonth>;
+    id: string;//Biz.getUniqueId()で生成する
+    yearmonth: string;//YYYY-MM
     memo: string | null;
     balance : number;
 };
