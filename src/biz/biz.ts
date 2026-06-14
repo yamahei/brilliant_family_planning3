@@ -94,6 +94,8 @@ export class Biz {
         return {
             id: this.getUniqueId(),
             sortorder: 0,
+            fromYM: null,
+            toYM: null,
             name: vm.ObjectNames.Klass,
             presetentityid: null,
             rules: [],
@@ -104,6 +106,8 @@ export class Biz {
         return {
             id: this.getUniqueId(),
             sortorder: 0,
+            fromYM: null,
+            toYM: null,
             name: vm.ObjectNames.Rule,
             amount: 0,
             classname: null,

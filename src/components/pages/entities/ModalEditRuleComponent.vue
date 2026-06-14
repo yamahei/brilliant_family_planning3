@@ -229,7 +229,7 @@ const onAppendConditionYM = () => {
     // save();//TODO: need save?
 };
 
-const onRemoveCondition = (condition:vm.types.BFPRules)=> {
+const onRemoveCondition = (condition:vm.types.BFPRuleArg_Any)=> {
     const index = props.rule.conditions.findIndex(c => c.id === condition.id);
     if(index >= 0){
         props.rule.conditions.splice(index, 1);

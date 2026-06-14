@@ -55,11 +55,13 @@ export const VMRuleNotes = [
 export type VMRule = {
     id: string;//Biz.getUniqueId()で生成する
     sortorder: number;
+    fromYM: string | null;//YYYY-MM
+    toYM: string | null;//YYYY-MM
     name: string;
     amount: number;
     classname: string | null;
     presetruleid: string | null;
-    conditions: NonNullable<types.BFPRules>;
+    conditions: NonNullable<types.BFPRules>;//これは引数（試算時にインスタンス生成
     accountid?: string | null;
 }
 export type VMRules = VMRule[];
@@ -68,6 +70,8 @@ export type VMRules = VMRule[];
 export type VMEntity = {
     id: string;//Biz.getUniqueId()で生成する
     sortorder: number;
+    fromYM: string | null;//YYYY-MM
+    toYM: string | null;//YYYY-MM
     name: string;
     presetentityid: string | null;
     rules: NonNullable<VMRules>;
