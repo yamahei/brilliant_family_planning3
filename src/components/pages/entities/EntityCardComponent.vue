@@ -42,19 +42,19 @@
  */
 import { getCurrentInstance } from 'vue'
 import { Biz } from '@/biz/biz';
-import { Store } from '@/biz/store';
+// import { Store } from '@/biz/store';
 import * as vm from '@/biz/bfpviewmodel';
 
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }
 const $biz: Biz = globalProperties.$biz;
-const $store: Store = globalProperties.$store;
-const $data: vm.BfpViewModel = globalProperties.$data;
-const $util: vm.BfpViewModel = globalProperties.$util;
+// const $store: Store = globalProperties.$store;
+// const $data: vm.BfpViewModel = globalProperties.$data;
+// const $util: vm.BfpViewModel = globalProperties.$util;
 // ----
-const $alert = globalProperties.$alert;
+// const $alert = globalProperties.$alert;
 const $confirm = globalProperties.$confirm;
-const $prompt = globalProperties.$prompt;
+// const $prompt = globalProperties.$prompt;
 // ここまで
 import { ref } from 'vue';
 
