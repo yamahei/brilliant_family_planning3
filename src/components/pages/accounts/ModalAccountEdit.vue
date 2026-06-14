@@ -64,7 +64,7 @@ const props = defineProps<{
 const name = ref(props.account?.name ?? "💳口座の名前");
 watch(props, () => {
     name.value = props.account?.name ?? "";
-});
+}, { immediate: true, deep: true });
 
 
 const onOk = () => {

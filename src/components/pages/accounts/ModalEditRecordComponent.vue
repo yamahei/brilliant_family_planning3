@@ -73,13 +73,12 @@ const props = defineProps<{
     record: vm.VMRecord;
 }>();
 
-const this_yearmonth = props.record?.yearmonth;
-const yearmonth = ref(this_yearmonth);
+const yearmonth = ref(props.record?.yearmonth);
 const balance = ref(props.record?.balance ?? 0);
 watch(props, () => {
     yearmonth.value = props.record?.yearmonth;
     balance.value = props.record?.balance ?? 0;
-});
+}, { immediate: true, deep: true });
 
 
 const onOk = () => {

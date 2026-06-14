@@ -1,5 +1,5 @@
 import * as types from "./lib/bfp/rule/types.ts";
-
+export { types };
 /*
     Names
 */

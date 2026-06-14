@@ -26,6 +26,7 @@
                 <EntityCardComponent
                     :entity="entity"
                     @edit="onEditEntity"
+                    @save="onSaveEntity"
                 ></EntityCardComponent>
 
             </div><!--column-->
@@ -90,6 +91,7 @@ const onEditEntity = (entiy:vm.VMEntity) => {
 };
 
 const onEntityEditOk = (entity:vm.VMEntity) => {
+    console.log("onEntityEditOk");
     if(!modal_isedit.value){
         //TODO: preset
         $data.entities.push(entity);
@@ -113,5 +115,9 @@ const onEntityEditRemove = (entity:vm.VMEntity) => {
             }
         }
     );
+};
+
+const onSaveEntity = () => {
+    save();
 };
 </script>

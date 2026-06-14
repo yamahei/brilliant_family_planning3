@@ -75,7 +75,7 @@ const presetentityid = ref(props.entity?.presetentityid ?? "");
 watch(props, () => {
     name.value = props.entity?.name ?? "";
     presetentityid.value = props.entity?.presetentityid ?? "";
-});
+}, { immediate: true, deep: true });
 
 
 const onOk = () => {

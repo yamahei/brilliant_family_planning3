@@ -66,15 +66,15 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" @click="onAppendConditionSM">
                                 <span class="tag is-info">指定月</span>
                                 指定した月（毎年）
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" @click="onAppendConditionSMSY">
                                 <span class="tag is-success">隔年月</span>
                                 指定した月（隔年）
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" @click="onAppendConditionYM">
                                 <span class="tag is-warning">特定日</span>
                                 特定の年月（1回）
                             </a>
@@ -88,108 +88,17 @@
         <div class="card">
             <div class="card-content">
 
-                <div class="content">
-
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field is-flex-grow-0">
-                                <p class="control">
-                                    <span class="tag is-warning">特定日</span>
-                                </p>
-                            </div>
-                            <div class="field is-flex-grow-0 flex-last-order">
-                                <p class="control">
-                                    <button class="button is-small">🗑️</button>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control">
-                                    <label class="checkbox">
-                                        結果を反転する
-                                        <input class="toggle is-small" type="checkbox"/>
-                                    </label>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <p class="control">
-                            <input class="input" type="month"/>
-                        </p>
-                    </div>
-
+                <div class="content condition-panel"
+                    v-for="condition in props.rule?.conditions"
+                    v-if="props.rule?.conditions.length > 0"
+                >
+                    <component
+                        :is="getConditionComponent(condition.type)"
+                        :condition="condition"
+                    ></component>
                 </div>
-
-                <div class="content">
-
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field is-flex-grow-0">
-                                <p class="control">
-                                    <span class="tag is-info">指定月</span>
-                                </p>
-                            </div>
-                            <div class="field is-flex-grow-0 flex-last-order">
-                                <p class="control">
-                                    <button class="button is-small">🗑️</button>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control">
-                                    <label class="checkbox">
-                                        結果を反転する
-                                        <input class="toggle is-small" type="checkbox"/>
-                                    </label>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field has-addons">
-                        <p class="control" v-for="month in 12">
-                            <button class="button is-small">{{ month }}</button>
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="content">
-
-                    <div class="field is-horizontal">
-                        <div class="field-body">
-                            <div class="field is-flex-grow-0">
-                                <p class="control">
-                                    <span class="tag is-success">隔年月</span>
-                                </p>
-                            </div>
-                            <div class="field is-flex-grow-0 flex-last-order">
-                                <p class="control">
-                                    <button class="button is-small">🗑️</button>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control">
-                                    <label>
-                                        結果を反転する
-                                        <input class="toggle is-small" type="checkbox"/>
-                                    </label>
-                                </p>
-                            </div>
-                            <div class="field has-addons">
-                                <p class="control">
-                                    <input class="input is-small" type="number" />
-                                </p>
-                                <p class="control">
-                                    <label>年ごと</label>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field has-addons">
-                        <p class="control" v-for="month in 12">
-                            <button class="button is-small">{{ month }}</button>
-                        </p>
-                    </div>
+                <div v-else class="notification">
+                    費目には、1つ以上の条件が必要です。
                 </div>
 
             </div>
@@ -203,11 +112,8 @@
 
 
 <style scoped>
-input[type=checkbox].toggle.is-small {
-  --size:16px;
-}
-.flex-last-order {
-    order: 65535;
+.condition-panel:not(:last-child) {
+    border-bottom: 3px solid var(--bulma-hr-background-color);
 }
 </style>
 
@@ -237,7 +143,12 @@ import { ref, watch } from 'vue';
 
 // @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
-
+// @ts-ignore TODO: fix alias settings
+import ConditionSomeMonthPanelComponent from '@/components/pages/entities/ConditionSomeMonthPanelComponent.vue';
+// @ts-ignore TODO: fix alias settings
+import ConditionStepYearPanelComponent from '@/components/pages/entities/ConditionStepYearPanelComponent.vue';
+// @ts-ignore TODO: fix alias settings
+import ConditionYearMonthPanelComponent from '@/components/pages/entities/ConditionYearMonthPanelComponent.vue';
 
 
 const emit = defineEmits(["ok", "cancel", "remove"]);
@@ -246,6 +157,8 @@ const props = defineProps<{
     isedit: boolean;
     rule: vm.VMRule;
 }>();
+
+console.debug({rule:props.rule});
 
 const name = ref(props.rule?.name ?? "費目の名前");
 const amount = ref(props.rule?.amount ?? 0);
@@ -257,17 +170,20 @@ watch(props, () => {
     amount.value = props.rule?.amount ?? 0;
     classname.value = props.rule?.classname ?? null;
     accountid.value = props.rule?.accountid ?? "";
-});
+}, { immediate: true, deep: true });
 
 
 
 const onOk = () => {
+    console.debug("onOk:1");
     const new_rule_name = name.value;
     const new_rule_amount = amount.value;
     const new_rule_classname = classname.value || null;
     const new_rule_accountid = accountid.value || null;
+    console.debug({new_rule_name, new_rule_amount, new_rule_classname, new_rule_accountid});
     if(!new_rule_name){ return; }
     if(!new_rule_amount){ return; }
+    console.debug("onOk:2");
 
     props.rule.name = new_rule_name;
     props.rule.amount = new_rule_amount;
@@ -280,6 +196,38 @@ const onCancel = () => {
 };
 const onRemove = () => {
     emit("remove", props.rule);
+};
+
+
+
+const getConditionComponent = (type: vm.types.BFPType_RuleNames) => {
+    switch (type) {
+        case vm.types.BFPConst_RuleNames.BFPType_RuleNameSM:
+            return ConditionSomeMonthPanelComponent;
+        case vm.types.BFPConst_RuleNames.BFPType_RuleNameSMSY:
+            return ConditionStepYearPanelComponent;
+        case vm.types.BFPConst_RuleNames.BFPType_RuleNameYM:
+            return ConditionYearMonthPanelComponent;
+        default:
+            throw new Error(`Unknown type '${type}'.`);
+    }
+}
+
+const onAppendConditionSM = () => {
+    const condition = $biz.getEmptyConditionSomeMonths();
+    props.rule.conditions.push(condition);
+    // save();//TODO: need save?
+};
+const onAppendConditionSMSY = () => {
+    const condition = $biz.getEmptyConditionSomeMonthStepYear();
+    props.rule.conditions.push(condition);
+    // save();//TODO: need save?
+};
+const onAppendConditionYM = () => {
+    console.debug("onAppendConditionYM");
+    const condition = $biz.getEmptyConditionYearMonths();
+    props.rule.conditions.push(condition);
+    // save();//TODO: need save?
 };
 
 

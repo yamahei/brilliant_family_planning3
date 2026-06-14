@@ -24,7 +24,7 @@
 </div>
 
 <ModalEditRuleComponent
-    :show="modal_show" :isedit="modal_isedit" :record="modal_rule"
+    :show="modal_show" :isedit="modal_isedit" :rule="modal_rule"
     @ok="onRuleEditOk" @cancel="onRuleEditCancel" @remove="onRuleEditRemove"
 ></ModalEditRuleComponent>
 
@@ -103,6 +103,7 @@ const onEditRule = (rule:vm.VMRule) => {
 };
 
 const onRuleEditOk = (rule:vm.VMRule) => {
+    console.log("onRuleEditOk");
     if(!modal_isedit.value){
         props.entity.rules.push(rule);
     }else{/* do nothing */}
