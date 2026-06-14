@@ -47,7 +47,7 @@ input.input.is-narrow {
 
 <script setup lang="ts">
 
-import * as vm from '../../../biz/bfpviewmodel';
+import * as vm from '@/biz/bfpviewmodel';
 import { ref, watch } from 'vue';
 
 const emit = defineEmits(["remove"]);

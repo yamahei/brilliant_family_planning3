@@ -46,9 +46,9 @@
  * 全頁定型のコード
  */
 import { getCurrentInstance } from 'vue'
-import { Biz } from '../../../biz/biz';
-import { Store } from '../../../biz/store';
-import * as vm from '../../../biz/bfpviewmodel';
+import { Biz } from '@/biz/biz';
+import { Store } from '@/biz/store';
+import * as vm from '@/biz/bfpviewmodel';
 
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }
@@ -63,9 +63,7 @@ const $prompt = globalProperties.$prompt;
 // ここまで
 import { ref } from 'vue';
 
-// @ts-ignore TODO: fix alias settings
 import AccountRecordComponent from '@/components/pages/accounts/AccountRecordComponent.vue';
-// @ts-ignore TODO: fix alias settings
 import ModalEditRecordComponent from '@/components/pages/accounts/ModalEditRecordComponent.vue';
 
 const emit = defineEmits(['edit', 'default', 'save']);
@@ -97,7 +95,7 @@ const onRemoveRecord = (record:vm.VMRecord) => {
 
 const modal_show = ref(false);
 const modal_isedit = ref(false);
-const modal_record = ref<vm.VMRecord | null>(null);
+const modal_record = ref<vm.VMRecord | undefined>(undefined);
 
 const onAppendRecord = () => {
     modal_record.value = $biz.getEmptyRecord();

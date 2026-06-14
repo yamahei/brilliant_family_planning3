@@ -72,10 +72,8 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import { Biz } from '@/biz/biz';
-// import { Biz } from '../biz/biz';
-// @ts-ignore TODO: fix alias settings
+
 import BalanceComponent from '@/components/pages/summary/balanceComponent.vue'
 
 const biz:Biz = Biz.getInstance();

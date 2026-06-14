@@ -24,7 +24,6 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 import { ref } from 'vue';
 

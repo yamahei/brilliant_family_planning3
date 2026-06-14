@@ -68,11 +68,8 @@ const save = () => {
 
 
 import { ref } from 'vue';
-// @ts-ignore TODO: fix alias settings
 import Header from '@/components/common/Header.vue';
-// @ts-ignore TODO: fix alias settings
 import EntityCardComponent from '@/components/pages/entities/EntityCardComponent.vue';
-// @ts-ignore TODO: fix alias settings
 import ModalEntityEdit from '@/components/pages/entities/ModalEntityEdit.vue';
 
 const modal_show = ref(false);

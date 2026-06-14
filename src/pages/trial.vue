@@ -34,8 +34,6 @@
 
 
 <script setup lang="ts">
-// @ts-ignore TODO: fix alias settings
 import Header from '@/components/common/Header.vue';
-// @ts-ignore TODO: fix alias settings
 import TableComponent from '@/components/pages/trial/tableComponent.vue';
 </script>

@@ -43,8 +43,7 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
-import * as vm from '../../../biz/bfpviewmodel';
+import * as vm from '@/biz/bfpviewmodel';
 
 import { ref, watch } from 'vue';
 

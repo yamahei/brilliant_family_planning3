@@ -55,10 +55,8 @@
 
 
 <script setup lang="ts">
-// @ts-ignore TODO: fix alias settings
 import * as vm from '@/biz/bfpviewmodel.ts';
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 import { ref, watch } from 'vue';
 

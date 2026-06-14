@@ -41,9 +41,9 @@
  * 全頁定型のコード
  */
 import { getCurrentInstance } from 'vue'
-import { Biz } from '../../../biz/biz';
-import { Store } from '../../../biz/store';
-import * as vm from '../../../biz/bfpviewmodel';
+import { Biz } from '@/biz/biz';
+import { Store } from '@/biz/store';
+import * as vm from '@/biz/bfpviewmodel';
 
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }
@@ -58,9 +58,7 @@ const $prompt = globalProperties.$prompt;
 // ここまで
 import { ref } from 'vue';
 
-// @ts-ignore TODO: fix alias settings
 import RulePanelComponent from '@/components/pages/entities/RulePanelComponent.vue';
-// @ts-ignore TODO: fix alias settings
 import ModalEditRuleComponent from '@/components/pages/entities/ModalEditRuleComponent.vue';
 
 
@@ -88,7 +86,7 @@ const onRemoveRule = (rule:vm.VMRule) => {
 
 const modal_show = ref(false);
 const modal_isedit = ref(false);
-const modal_rule = ref<vm.VMRule | null>(null);
+const modal_rule = ref<vm.VMRule | undefined>(undefined);
 
 
 const onAppendRule = () => {

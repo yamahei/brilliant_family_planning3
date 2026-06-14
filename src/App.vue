@@ -18,7 +18,6 @@ import { RouterView } from 'vue-router'
 import { ref, getCurrentInstance } from 'vue';
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 
-// @ts-ignore TODO: fix alias settings
 import ModalAlert from '@/components/common/ModalAlert.vue';
 const isAlertShow = ref(false);
 const alertTitle = ref('Alert title');
@@ -37,7 +36,6 @@ const alertShow = (title:string, message:string, callback:()=>void) => {
     console.log(`ModalAlert shown`);
 };
 
-// @ts-ignore TODO: fix alias settings
 import ModalConfirm from '@/components/common/ModalConfirm.vue';
 const isConfirmShow = ref(false);
 const confirmTitle = ref('Confirm title');
@@ -56,7 +54,6 @@ const confirmShow = (title:string, message:string, callback:(result: boolean) =>
     console.log(`ModalConfirm shown`);
 };
 
-// @ts-ignore TODO: fix alias settings
 import ModalPrompt from '@/components/common/ModalPrompt.vue';
 const isPromptShow = ref(false);
 const promptTitle = ref('Prompt title');

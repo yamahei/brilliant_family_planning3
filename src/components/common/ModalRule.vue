@@ -72,7 +72,6 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 import { ref } from 'vue';
 
@@ -86,7 +85,6 @@ const props = defineProps<{
     defaultNameValue?: string;
 }>();
 
-// @ts-ignore TODO: fix alias settings
 const text = ref(props.defaultNameValue ?? "");
 const onOk = () => {
     const rule_name = text.value.trim();

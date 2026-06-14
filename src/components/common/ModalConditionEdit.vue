@@ -75,15 +75,11 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import * as types from "@/biz/lib/bfp/rule/types.ts";
-// @ts-ignore TODO: fix alias settings
 import * as vm from '@/biz/bfpviewmodel';
-// @ts-ignore TODO: fix alias settings
 import { Biz } from "@/biz/biz";
 const biz:Biz = Biz.getInstance();
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 import { ref } from 'vue';
 

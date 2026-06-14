@@ -43,9 +43,9 @@
 
 <script setup lang="ts">
 import { getCurrentInstance } from 'vue'
-import { Store } from '../../../biz/store';
-import { Util } from '../../../biz/util';
-import * as vm from '../../../biz/bfpviewmodel';
+import { Store } from '@/biz/store';
+import { Util } from '@/biz/util';
+import * as vm from '@/biz/bfpviewmodel';
 
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }

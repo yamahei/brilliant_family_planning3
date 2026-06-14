@@ -57,11 +57,8 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import HogeComponent from "@/components/pages/index/hogeComponent.vue"
 
-
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 import { ref } from 'vue';
 const isBaseShow = ref(false);

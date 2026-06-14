@@ -55,11 +55,11 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import * as vm from '@/biz/bfpviewmodel';
 
 const props = defineProps<{
-    summarycache: vm.VMSummaryCache | null
+    //TODO:
+    summarycache: any;//vm.VMSummaryCache | null
 }>();
 
 

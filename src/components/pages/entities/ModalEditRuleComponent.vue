@@ -90,11 +90,11 @@
 
                 <div class="content condition-panel"
                     v-for="condition in props.rule?.conditions"
-                    v-if="props.rule?.conditions.length > 0"
+                    v-if="props?.rule && props?.rule.conditions.length || 0 > 0"
                 >
                     <component
-                        :is="getConditionComponent(condition.type)"
-                        :condition="condition"
+                        :is="getConditionComponent(condition)"
+                        :condition="(condition as any /* エラー解消のため敢えてany */)"
                         @remove="onRemoveCondition"
                     ></component>
                 </div>
@@ -125,9 +125,9 @@
  * 全頁定型のコード
  */
 import { getCurrentInstance } from 'vue'
-import { Biz } from '../../../biz/biz';
-import { Store } from '../../../biz/store';
-import * as vm from '../../../biz/bfpviewmodel';
+import { Biz } from '@/biz/biz';
+import { Store } from '@/biz/store';
+import * as vm from '@/biz/bfpviewmodel';
 
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }
@@ -142,13 +142,9 @@ const $prompt = globalProperties.$prompt;
 // ここまで
 import { ref, watch } from 'vue';
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
-// @ts-ignore TODO: fix alias settings
 import ConditionSomeMonthPanelComponent from '@/components/pages/entities/ConditionSomeMonthPanelComponent.vue';
-// @ts-ignore TODO: fix alias settings
 import ConditionStepYearPanelComponent from '@/components/pages/entities/ConditionStepYearPanelComponent.vue';
-// @ts-ignore TODO: fix alias settings
 import ConditionYearMonthPanelComponent from '@/components/pages/entities/ConditionYearMonthPanelComponent.vue';
 
 
@@ -156,7 +152,7 @@ const emit = defineEmits(["ok", "cancel", "remove"]);
 const props = defineProps<{
     show: boolean;
     isedit: boolean;
-    rule: vm.VMRule;
+    rule?: vm.VMRule;
 }>();
 
 console.debug({rule:props.rule});
@@ -176,6 +172,7 @@ watch(props, () => {
 
 
 const onOk = () => {
+    if(!props.rule){ return; }
     const new_rule_name = name.value;
     const new_rule_amount = amount.value;
     const new_rule_classname = classname.value || null;
@@ -199,7 +196,8 @@ const onRemove = () => {
 
 
 
-const getConditionComponent = (type: vm.types.BFPType_RuleNames) => {
+const getConditionComponent = (condition:vm.types.BFPRuleArg_Any) => {
+    const type = condition.type;
     switch (type) {
         case vm.types.BFPConst_RuleNames.BFPType_RuleNameSM:
             return ConditionSomeMonthPanelComponent;
@@ -213,23 +211,24 @@ const getConditionComponent = (type: vm.types.BFPType_RuleNames) => {
 }
 
 const onAppendConditionSM = () => {
+    if(!props.rule){ return; }
     const condition = $biz.getEmptyConditionSomeMonths();
     props.rule.conditions.push(condition);
-    // save();//TODO: need save?
 };
 const onAppendConditionSMSY = () => {
+    if(!props.rule){ return; }
     const condition = $biz.getEmptyConditionSomeMonthStepYear();
     props.rule.conditions.push(condition);
-    // save();//TODO: need save?
 };
 const onAppendConditionYM = () => {
-    console.debug("onAppendConditionYM");
+    if(!props.rule){ return; }
     const condition = $biz.getEmptyConditionYearMonths();
     props.rule.conditions.push(condition);
-    // save();//TODO: need save?
 };
 
-const onRemoveCondition = (condition:vm.types.BFPRuleArg_Any)=> {
+const onRemoveCondition = (condition: vm.types.BFPRuleArg_Any)=> {
+    if(!condition){ return; }
+    if(!props.rule){ return; }
     const index = props.rule.conditions.findIndex(c => c.id === condition.id);
     if(index >= 0){
         props.rule.conditions.splice(index, 1);

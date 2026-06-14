@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 
 const emit = defineEmits(["ok", "cancel"]);

@@ -46,10 +46,8 @@
 
 
 <script setup lang="ts">
-// @ts-ignore TODO: fix alias settings
 import * as vm from '@/biz/bfpviewmodel.ts';
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 import { ref, watch } from 'vue';
 
@@ -57,7 +55,7 @@ const emit = defineEmits(["ok", "cancel", "remove"]);
 const props = defineProps<{
     show: boolean;
     isedit: boolean;
-    account: vm.VMAccount;
+    account?: vm.VMAccount;
 }>();
 
 
@@ -68,6 +66,7 @@ watch(props, () => {
 
 
 const onOk = () => {
+    if(!props.account){ return; }
     const new_account_name = name.value.trim();
     if (new_account_name) {
         props.account.name = new_account_name;

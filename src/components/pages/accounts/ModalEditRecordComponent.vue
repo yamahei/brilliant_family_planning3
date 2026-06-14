@@ -44,9 +44,9 @@
  * 全頁定型のコード
  */
 import { getCurrentInstance } from 'vue'
-import { Biz } from '../../../biz/biz';
-import { Store } from '../../../biz/store';
-import * as vm from '../../../biz/bfpviewmodel';
+import { Biz } from '@/biz/biz';
+import { Store } from '@/biz/store';
+import * as vm from '@/biz/bfpviewmodel';
 
 const globalProperties = getCurrentInstance()?.appContext.config.globalProperties;
 if(!globalProperties){ throw new Error("Failed to get global properties. Make sure this code is running within the setup function of a Vue component."); }
@@ -61,7 +61,6 @@ const $prompt = globalProperties.$prompt;
 // ここまで
 import { ref, watch } from 'vue';
 
-// @ts-ignore TODO: fix alias settings
 import ModalBase from '@/components/common/ModalBase.vue';
 
 
@@ -70,7 +69,7 @@ const emit = defineEmits(["ok", "cancel", "remove"]);
 const props = defineProps<{
     show: boolean;
     isedit: boolean;
-    record: vm.VMRecord;
+    record?: vm.VMRecord;
 }>();
 
 const yearmonth = ref(props.record?.yearmonth);
@@ -82,6 +81,7 @@ watch(props, () => {
 
 
 const onOk = () => {
+    if(!props.record){ return; }
     const new_record_yearmonth = yearmonth.value;
     const new_record_balance = Number(balance.value);
     if(!new_record_yearmonth){ return; }

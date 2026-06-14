@@ -71,11 +71,8 @@ const save = () => {
 };
 
 import { ref } from 'vue';
-// @ts-ignore TODO: fix alias settings
 import Header from '@/components/common/Header.vue';
-// @ts-ignore TODO: fix alias settings
 import AccountCardComponent from '@/components/pages/accounts/AccountCardComponent.vue';
-// @ts-ignore TODO: fix alias settings
 import ModalAccountEdit from '@/components/pages/accounts/ModalAccountEdit.vue';
 
 const modal_show = ref(false);
