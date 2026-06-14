@@ -9,22 +9,27 @@
             </div>
             <div class="field is-flex-grow-0 flex-last-order">
                 <p class="control">
-                    <button class="button is-small">🗑️</button>
+                    <button class="button is-small" @click="onDeleteCondition">🗑️</button>
                 </p>
             </div>
             <div class="field">
                 <p class="control">
                     <label class="checkbox">
                         結果を反転する
-                        <input class="toggle is-small" type="checkbox"/>
+                        <input class="toggle is-small" type="checkbox" v-model="not"/>
                     </label>
                 </p>
             </div>
         </div>
     </div>
     <div class="field has-addons">
-        <p class="control" v-for="month in 12">
-            <button class="button is-small">{{ month }}</button>
+        <p class="control">
+            <button class="button is-small"
+                 v-for="month in 12"
+                 :key="`${month}-months.length`"
+                 :class="isMonthelectedClass(month as vm.types.BFPType_Month)"
+                 @click="onMonthToggled(month as vm.types.BFPType_Month)"
+            >{{ month }}</button>
         </p>
     </div>
 
@@ -44,13 +49,39 @@ input.input.is-narrow {
 
 
 <script setup lang="ts">
+import * as vm from '../../../biz/bfpviewmodel';
+import { ref, watch } from 'vue';
 
-// @ts-ignore TODO: fix alias settings
-import * as vm from '@/biz/bfpviewmodel';
+const emit = defineEmits(["remove"]);
+const props = defineProps<{
+    condition: vm.types.BFPRuleArg_SomeMonth;
+}>();
 
-//TODO: define property: category: VMCategory
+const not = ref(!props.condition.not);
+watch(not, ()=> {
+    props.condition.not = !not.value;
+}, { immediate: true, deep: true });
+const months = ref<vm.types.BFPType_Month[]>([...props.condition.months]);
+watch(months, ()=> {
+    props.condition.months = [...months.value];
+}, { immediate: true, deep: true });
 
+const SELECTED_CLASSNAME = "is-info";
+const isMonthelectedClass = (month:vm.types.BFPType_Month)=> {
+    return months.value.includes(month) ? SELECTED_CLASSNAME : "";
+};
+const onMonthToggled = (month:vm.types.BFPType_Month)=> {
+    console.debug("onMonthToggled", {month});
+    if(months.value.includes(month)){
+        months.value = months.value.filter(m => m !== month);
+    }else{
+        months.value.push(month);
+    }
+    console.debug({month:months.value});
+};
 
-
+const onDeleteCondition = ()=> {
+    emit("remove", props.condition);
+};
 </script>
 

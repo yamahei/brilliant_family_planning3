@@ -95,6 +95,7 @@
                     <component
                         :is="getConditionComponent(condition.type)"
                         :condition="condition"
+                        @remove="onRemoveCondition"
                     ></component>
                 </div>
                 <div v-else class="notification">
@@ -175,15 +176,13 @@ watch(props, () => {
 
 
 const onOk = () => {
-    console.debug("onOk:1");
     const new_rule_name = name.value;
     const new_rule_amount = amount.value;
     const new_rule_classname = classname.value || null;
     const new_rule_accountid = accountid.value || null;
-    console.debug({new_rule_name, new_rule_amount, new_rule_classname, new_rule_accountid});
     if(!new_rule_name){ return; }
     if(!new_rule_amount){ return; }
-    console.debug("onOk:2");
+    if(props.rule.conditions.length <= 0){ return; }
 
     props.rule.name = new_rule_name;
     props.rule.amount = new_rule_amount;
@@ -230,5 +229,10 @@ const onAppendConditionYM = () => {
     // save();//TODO: need save?
 };
 
-
+const onRemoveCondition = (condition:vm.types.BFPRules)=> {
+    const index = props.rule.conditions.findIndex(c => c.id === condition.id);
+    if(index >= 0){
+        props.rule.conditions.splice(index, 1);
+    }
+};
 </script>
